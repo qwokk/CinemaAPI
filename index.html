@@ -17,10 +17,31 @@
 
     <div class="search-box">
         <input type="text" id="movieInput" placeholder="Search for a movie ..." autocomplete="off">
+        <button id="searchBtn">Search</button>
     </div>
 
+    <div id="movieContainer" class="movie-container"></div>
 
+    <div class="pagination">
+        <button id="prevPage" disabled>⬅️ Previuos</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextPage" disabled>Next ➡️</button>
+    </div>
+    <button id="scrollTopBtn" title="Go to top">⬆️</button>
 
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal"></span>
+            <div class="modal-inner">
+                <div class="modal-left">
+                    <img id="modal Poster" src="" alt="">
+                </div>
+                <div class="modal-right" id="modalDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    
 
     <script src="script.js"></script>
 </body>

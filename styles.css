@@ -132,6 +132,15 @@ button:hover {
     max-width: 800px;
     position: relative;
     animation: fadein 0.4s ease;
-    
+}
 
+@keyframes fadeIN {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

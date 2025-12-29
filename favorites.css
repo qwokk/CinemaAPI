@@ -73,7 +73,7 @@ header a:hover {
 }
 
 .remove-btn {
-    position: relative;
+    position: absolute;
     top: 8px;
     right: 8px;
     background: #ff3b3b;

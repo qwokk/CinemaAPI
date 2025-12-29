@@ -54,3 +54,63 @@ header a:hover {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
+.movie-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.movie-card h2 {
+    font-size: 1rem;
+    margin: 0.5rem;
+    color: #333;
+}
+
+.movie-card p {
+    color: #666;
+    margin: 0 0.5rem 1rem;
+}
+
+.remove-btn {
+    position: relative;
+    top: 8px;
+    right: 8px;
+    background: #ff3b3b;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.remove-btn:hover {
+    background: #cc0000;
+}
+
+.empty-message {
+    text-align: center;
+    color: #555;
+    font-size: 1.1rem;
+    padding: 2rem;
+}
+
+.go-back {
+    display: block;
+    margin: 2rem auto;
+    padding: 0.8rem 1.5rem;
+    font-size:  1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.go-back:hover {
+    background-color: #0056b3;
+}

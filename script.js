@@ -102,9 +102,48 @@ async function fetchMovies() {
     pageInfo.textContent = `Page ${currentPage}`;
     prevPageBtn.disabled = currentPage == 1;
     nextPageBtn.disabled = data.Search.length < 10;
-    } catch(e) {
-
+    } catch (error) {
+        movieContainer.innerHTML =
+            '<p>Something went wrong. Please try again later.</p>';
+        pagination.style.display = 'none';
     }
     
 }
 
+async function showDetails(id) {
+  try {
+    const res = await fetch(
+      `https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`
+    );
+    const movie = await res.json();
+
+    modalPoster.src =
+      movie.Poster !== 'N/A'
+        ? movie.Poster
+        : 'https://via.placeholder.com/250x350';
+
+    modalDetails.innerHTML = `
+      <h2>${movie.Title} (${movie.Year})</h2>
+      <p><strong>Genre:</strong> ${movie.Genre}</p>
+      <p><strong>Director:</strong> ${movie.Director}</p>
+      <p><strong>Actors:</strong> ${movie.Actors}</p>
+      <p><strong>IMDB Rating:</strong> ⭐ ${movie.imdbRating}</p>
+      <p><strong>Plot:</strong> ${movie.Plot}</p>
+      <button onclick="addToFavorites('${movie.imdbID}', '${movie.Title}', '${movie.Poster}', '${movie.Year}')">❤️ Add to Favorites</button>
+    `;
+    modal.style.display = 'flex';
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function addToFavorites(id, title, poster, year) {
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  if (!favorites.find((movie) => movie.imdbID === id)) {
+    favorites.push({ imdbID: id, Title: title, Poster: poster, Year: year });
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    alert(`${title} add to favorites!`);
+  } else {
+    alert('Already in favorites!');
+  }
+}

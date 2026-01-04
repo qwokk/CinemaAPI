@@ -30,3 +30,15 @@ git clone https://github.com/ваш-логин/movie-search-app.git
 ```
 #### 2.Откройте файл index.html в любом современном браузере.
 #### 3.Примечание: Для работы поиска используется бесплатный API ключ. Если вы хотите использовать свой, замените значение API_KEY в файле script.js.
+
+# Результат 
+#### 1)
+<img width="1883" height="951" alt="Image" src="https://github.com/user-attachments/assets/4f6e2a5e-6f04-4773-a820-c164907a6244" />
+
+#### 2)
+
+<img width="1866" height="949" alt="Image" src="https://github.com/user-attachments/assets/ccbe09dd-4f08-4ff0-94a0-fd1aa4994682" />
+
+#### 3)
+
+<img width="1891" height="948" alt="Image" src="https://github.com/user-attachments/assets/0f129928-820b-4e2c-84ba-ae7ac1900c9f" />

@@ -1,98 +1,98 @@
 const API_KEY = 'thewdb';
-const searchBtn = document.getElementById('searchBtn');
-const movieInput = document.getElementById('movieInput');
-const movieContainer = document.getElementById('movieContainer');
-const modal = document.getElementById('movieModal');
+const searchBtn = document.getElementById('searchBtn'); //Кнопка поиска
+const movieInput = document.getElementById('movieInput'); //Поле ввода
+const movieContainer = document.getElementById('movieContainer'); //Контейнер, куда выводятся фильмы
+const modal = document.getElementById('movieModal'); //Используются для окна с подробной информацией о фильме
 const modalDetails = document.getElementById('modalDetails');
 const modalPoster = document.getElementById('modalPoster');
 const closeModal = document.getElementById('closeModal');
 const prevPageBtn = document.getElementById('prevPage');
 const nextPageBtn = document.getElementById('nextPage');
-const pageInfo = document.getElementById('pageInfo');
-const pagination = document.querySelector('.pagination');
-const scrollTopBtn = document.getElementById('scrollTopBtn');
+const pageInfo = document.getElementById('pageInfo'); // Информация о странице
+const pagination = document.querySelector('.pagination'); //Блок с пагинацией
+const scrollTopBtn = document.getElementById('scrollTopBtn'); //Кнопка прокрутки вверх
 
-let currentPage = 1;
-let currentQuery = '';
+let currentPage = 1; //Текущая страница поиска
+let currentQuery = ''; //Текст поиска (название фильма)
 
-pagination.style.display = 'none';
+pagination.style.display = 'none'; //Скрываем пагинацию при загрузке страницы
 
 searchBtn.addEventListener('click', () => {
     currentPage = 1;
-    fetchMovies();
+    fetchMovies(); //Сбрасываем страницу и ищем фильмы
 });
 
 movieInput.addEventListener('keypress', (e) => {
     if (e.key == 'Enter') {
         currentPage = 1;
-        fetchMovies()
-    }
+        fetchMovies() 
+    } //Нажал Enter — начинается поиск
 });
 
 closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
+    modal.style.display = 'none'; //Закрытие модального окна
 });
 
 prevPageBtn.addEventListener('click', () => {
     if (currentPage > 1) {
     currentPage--;
-    fetchMovies();
+    fetchMovies(); //Предыдущая страница
     scrollToTop(); 
 }
 });
 
 nextPageBtn.addEventListener('click', () => {
     currentPage++;
-    fetchMovies();
+    fetchMovies(); //Следующая страница
     scrollToTop();
 });
 
 window.addEventListener('scroll', () => {
     if (document.documentElement.scrollTop > 200) {
-        scrollTopBtn.style.display = 'block';
+        scrollTopBtn.style.display = 'block'; //Кнопка "Наверх"
     } else {
         scrollTopBtn.style.display = 'none';
     }
 });
 
 scrollTopBtn.addEventListener('click', () => {
-    scrollToTop();
+    scrollToTop(); //Показывает кнопку, если прокрутка больше 200px
 })
 
 function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth'});
+    window.scrollTo({ top: 0, behavior: 'smooth'}); //Плавно прокручивает страницу вверх
 }
 
-async function fetchMovies() {
+async function fetchMovies() { //async — чтобы использовать await
     currentQuery = movieInput.value.trim();
     if (!currentQuery) {
-        movieContainer.innerHTML = '<p>Please enter a movie name </p>';
+        movieContainer.innerHTML = '<p>Please enter a movie name </p>'; //Если поле пустое — показываем сообщение
         pagination.style.display = 'none';
         return;
     }
 
-    movieContainer.innerHTML = '<p>Loading ...</p>';
+    movieContainer.innerHTML = '<p>Loading ...</p>'; //Загрузка
 
     try{
         const res = await fetch(
-             `https://www.omdbapi.com/?s=${currentQuery}&page=${currentPage}&apikey=${API_KEY}`
+             `https://www.omdbapi.com/?s=${currentQuery}&page=${currentPage}&apikey=${API_KEY}` //Запрос к OMDb API
         );
         const data = await res.json();
 
         if (data.Response == 'False') {
             movieContainer.innerHTML = `<p>${data.Error}</p>`;
-            pagination.style.display = 'none';
+            pagination.style.display = 'none'; //Если ошибка
             return;
         }
         
-        movieContainer.innerHTML = data.Search.map((movie) => `
-        <div class="movie-card" onclick="showDetails('${movie.imdbID}')">
+        movieContainer.innerHTML = data.Search.map((movie) => ` 
+        <div class="movie-card" onclick="showDetails('${movie.imdbID}')">  
             <img src="${
                 movie.Poster !== 'N/A'
                     ? movie.Poster
-                    : 'https://via.placeholder.com/220x330'
+                    : 'https://via.placeholder.com/220x330' 
             }" alt="${movie.Title}">
-            <h2>${movie.Title}</h2>
+            <h2>${movie.Title}</h2> 
             <p>${movie.Year}</p>
       </div>
         `
